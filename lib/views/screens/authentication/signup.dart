@@ -1,4 +1,6 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
+import 'package:connectify/views/screens/authentication/login.dart';
+import 'package:connectify/views/screens/authentication/otpPage.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/authentication/signupbg.dart';
@@ -124,7 +126,14 @@ class _SignupPageState extends State<SignupPage> {
                   height: size.height*0.06,
                   width: size.width*0.9,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OTPPage(),
+                          ),
+                        );
+                      },
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
@@ -170,8 +179,15 @@ class _SignupPageState extends State<SignupPage> {
                 children: [
                   Text("Already have an account?"),
                   TextButton(
-                      onPressed: () {} ,
-                      child: Text("Next",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                        );
+                      } ,
+                      child: Text("Signin",
                         style: TextStyle(color: AppColors.buttonColor),
                       )
                   )

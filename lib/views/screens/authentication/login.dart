@@ -1,4 +1,5 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
+import 'package:connectify/views/screens/authentication/signup.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -152,7 +153,14 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Text("Don’t have an account?"),
                   TextButton(
-                      onPressed: () {} ,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignupPage(),
+                          ),
+                        );
+                      } ,
                       child: Text("Signup",
                         style: TextStyle(color: AppColors.buttonColor),
                       )
