@@ -1,6 +1,8 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../widgets/authentication/signupbg.dart';
+
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
@@ -18,26 +20,7 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset("assets/images/leftVector.png"),
-                      SizedBox(height: size.height*0.06,),
-                      Padding(
-                        padding: EdgeInsets.only(left: size.width*0.05),
-                        child: Text("Sign up", style: TextStyle(fontSize: size.width*0.12),),
-                      ),
-                    ],
-                  ),
-                  Image.asset("assets/images/rightVector.png",
-                    width: size.width*0.55,
-                  ),
-                ],
-              ),
+              Signupbg(),
               Padding(
                 padding: EdgeInsets.only(left: size.width*0.05),
                 child: Image.asset("assets/images/progressBar.png"),

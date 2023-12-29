@@ -3,6 +3,8 @@ import 'package:connectify/views/screens/authentication/login.dart';
 import 'package:connectify/views/screens/authentication/signup.dart';
 import 'package:flutter/material.dart';
 
+import 'views/screens/authentication/otpPage.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: SignupPage(),
+      home: OTPPage(),
     );
   }
 }
