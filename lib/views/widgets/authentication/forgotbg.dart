@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Forgotbg extends StatelessWidget {
-  const Forgotbg({super.key});
+  final String first;
+  final String second;
+  const Forgotbg({super.key, required this.first, required this.second});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,8 @@ class Forgotbg extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Forgot", style: TextStyle(fontSize: size.width*0.12),),
-              Text("Password?", style: TextStyle(fontSize: size.width*0.12),),
+              Text(first, style: TextStyle(fontSize: size.width*0.12),),
+              Text(second, style: TextStyle(fontSize: size.width*0.12),),
             ],
           ),
         ),

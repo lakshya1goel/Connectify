@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/contants/colors/app_colors.dart';
 
-class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({super.key});
+class ResetPasswordPage extends StatefulWidget {
+  const ResetPasswordPage({super.key});
 
   @override
-  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
 }
 
-class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -21,11 +21,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Forgotbg(first: "Forgot", second: "Password?",),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width*0.05, vertical: size.height*0.02),
-                child: Text("Enter you registered email"),
-              ),
+              Forgotbg(first: "Reset", second: "Password",),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width*0.05, vertical: size.height*0.02),
                 child: Form(
@@ -36,7 +32,27 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         children: [
                           TextFormField(
                             decoration: InputDecoration(
-                              labelText: 'Email',
+                              labelText: 'New Password',
+                              labelStyle: TextStyle(color: AppColors.textColor),
+                              contentPadding: EdgeInsets.only(bottom: size.height*0.01),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppColors.buttonColor,
+                                  width: size.height*0.003,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppColors.underlineColor,
+                                  width: size.height*0.003,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: size.height*0.03,),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: 'Confirm New Password',
                               labelStyle: TextStyle(color: AppColors.textColor),
                               contentPadding: EdgeInsets.only(bottom: size.height*0.01),
                               focusedBorder: UnderlineInputBorder(
