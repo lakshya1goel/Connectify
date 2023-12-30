@@ -1,4 +1,5 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
+import 'package:connectify/views/screens/authentication/forgotPasswordPage.dart';
 import 'package:connectify/views/screens/authentication/login.dart';
 import 'package:connectify/views/screens/authentication/signup.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginPage(),
+      home: ForgotPasswordPage(),
     );
   }
 }
