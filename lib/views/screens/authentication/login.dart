@@ -1,6 +1,8 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
+import 'package:connectify/utils/routes/app_route_constants.dart';
 import 'package:connectify/views/screens/authentication/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -91,7 +93,9 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          GoRouter.of(context).pushNamed(MyAppRouteConstants.ForgotPasswordRouteName);
+                        },
                         child: Text("Forgot Password?",
                         style: TextStyle(
                           color: AppColors.buttonColor
@@ -154,12 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                   Text("Don’t have an account?"),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignupPage(),
-                          ),
-                        );
+                        GoRouter.of(context).pushNamed(MyAppRouteConstants.SignupRouteName);
                       } ,
                       child: Text("Signup",
                         style: TextStyle(color: AppColors.buttonColor),

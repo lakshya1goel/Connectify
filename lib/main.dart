@@ -1,12 +1,6 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
-import 'package:connectify/views/screens/authentication/forgotPasswordPage.dart';
-import 'package:connectify/views/screens/authentication/login.dart';
-import 'package:connectify/views/screens/authentication/otpVerificationPage.dart';
-import 'package:connectify/views/screens/authentication/resetPasswordPage.dart';
-import 'package:connectify/views/screens/authentication/signup.dart';
+import 'package:connectify/utils/routes/app_route_config.dart';
 import 'package:flutter/material.dart';
-
-import 'views/screens/authentication/otpPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Connectify',
       theme: ThemeData(
@@ -29,7 +23,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: OTPVerificationPage(),
+      routerConfig: router,
     );
   }
 }

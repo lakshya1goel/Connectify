@@ -1,8 +1,10 @@
 import 'package:connectify/views/widgets/authentication/forgotbg.dart';
 import 'package:connectify/views/widgets/authentication/signupbg.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../utils/contants/colors/app_colors.dart';
+import '../../../utils/routes/app_route_constants.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -65,7 +67,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   height: size.height*0.06,
                   width: size.width*0.9,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).pushNamed(MyAppRouteConstants.OTPVerificationRouteName);
+                      },
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(
                         elevation: 0,

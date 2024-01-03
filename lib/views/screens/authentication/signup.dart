@@ -2,7 +2,9 @@ import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/views/screens/authentication/login.dart';
 import 'package:connectify/views/screens/authentication/otpPage.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../utils/routes/app_route_constants.dart';
 import '../../widgets/authentication/signupbg.dart';
 
 class SignupPage extends StatefulWidget {
@@ -127,12 +129,7 @@ class _SignupPageState extends State<SignupPage> {
                   width: size.width*0.9,
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const OTPPage(),
-                          ),
-                        );
+                        GoRouter.of(context).pushNamed(MyAppRouteConstants.OTPPageRouteName);
                       },
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(
@@ -180,12 +177,7 @@ class _SignupPageState extends State<SignupPage> {
                   Text("Already have an account?"),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
-                          ),
-                        );
+                        GoRouter.of(context).pushNamed(MyAppRouteConstants.LoginRouteName);
                       } ,
                       child: Text("Signin",
                         style: TextStyle(color: AppColors.buttonColor),
