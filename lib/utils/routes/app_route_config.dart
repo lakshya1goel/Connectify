@@ -3,6 +3,7 @@ import 'package:connectify/views/screens/authentication/forgotPasswordPage.dart'
 import 'package:connectify/views/screens/authentication/login.dart';
 import 'package:connectify/views/screens/authentication/otpPage.dart';
 import 'package:connectify/views/screens/authentication/otpVerificationPage.dart';
+import 'package:connectify/views/screens/authentication/profilePicSeletionScreen.dart';
 import 'package:connectify/views/screens/authentication/resetPasswordPage.dart';
 import 'package:connectify/views/screens/authentication/signup.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,13 @@ import 'package:go_router/go_router.dart';
                   return const MaterialPage(child: OTPPage());
                 }
             ),
+            GoRoute(
+                name: MyAppRouteConstants.ProfilePicSelectionRouteName,
+                path: 'profile_pic_selection_page',
+                pageBuilder: (context, state) {
+                  return const MaterialPage(child: ProfilePicSelectionPage());
+                }
+            )
           ],
       ),
       GoRoute(

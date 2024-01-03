@@ -1,6 +1,8 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
+import '../../../utils/routes/app_route_constants.dart';
 import '../../widgets/authentication/signupbg.dart';
 
 class OTPPage extends StatefulWidget {
@@ -74,7 +76,9 @@ class _OTPPageState extends State<OTPPage> {
                   height: size.height*0.06,
                   width: size.width*0.9,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).pushNamed(MyAppRouteConstants.ProfilePicSelectionRouteName);
+                      },
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(
                         elevation: 0,

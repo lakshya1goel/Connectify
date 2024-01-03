@@ -5,4 +5,5 @@ class MyAppRouteConstants {
   static const String OTPVerificationRouteName = 'otp_verification_page';
   static const String ForgotPasswordRouteName = 'forgot_password_page';
   static const String ResetPasswordRouteName = 'reset_password_page';
+  static const String ProfilePicSelectionRouteName = 'profile_pic_selection_page';
 }
