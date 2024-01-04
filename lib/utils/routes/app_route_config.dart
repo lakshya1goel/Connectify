@@ -1,11 +1,11 @@
 import 'package:connectify/utils/routes/app_route_constants.dart';
-import 'package:connectify/views/screens/authentication/forgotPasswordPage.dart';
-import 'package:connectify/views/screens/authentication/login.dart';
-import 'package:connectify/views/screens/authentication/otpPage.dart';
-import 'package:connectify/views/screens/authentication/otpVerificationPage.dart';
-import 'package:connectify/views/screens/authentication/profilePicSeletionScreen.dart';
-import 'package:connectify/views/screens/authentication/resetPasswordPage.dart';
-import 'package:connectify/views/screens/authentication/signup.dart';
+import 'package:connectify/authentication/forgotPass/views/screens/forgotPasswordPage.dart';
+import 'package:connectify/authentication/login/views/sreens/login.dart';
+import 'package:connectify/authentication/signup/views/screens/otpPage.dart';
+import 'package:connectify/authentication/forgotPass/views/screens/otpVerificationPage.dart';
+import 'package:connectify/authentication/signup/views/screens/profilePicSeletionScreen.dart';
+import 'package:connectify/authentication/forgotPass/views/screens/resetPasswordPage.dart';
+import 'package:connectify/authentication/signup/views/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

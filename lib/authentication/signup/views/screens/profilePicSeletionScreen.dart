@@ -2,8 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../utils/routes/app_route_constants.dart';
-import '../../widgets/authentication/signupbg.dart';
+import '../../../../utils/routes/app_route_constants.dart';
+import '../widgets/signupbg.dart';
 
 class ProfilePicSelectionPage extends StatefulWidget {
   const ProfilePicSelectionPage({super.key});
@@ -137,7 +137,7 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                   width: size.width*0.9,
                   child: ElevatedButton(
                       onPressed: () {
-                        GoRouter.of(context).pushNamed(MyAppRouteConstants.LoginRouteName);
+                        context.goNamed(MyAppRouteConstants.LoginRouteName);
                       },
                       child: Text("Finish"),
                       style: ElevatedButton.styleFrom(

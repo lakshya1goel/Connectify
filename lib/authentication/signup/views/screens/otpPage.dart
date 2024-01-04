@@ -2,8 +2,8 @@ import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
-import '../../../utils/routes/app_route_constants.dart';
-import '../../widgets/authentication/signupbg.dart';
+import '../../../../utils/routes/app_route_constants.dart';
+import '../widgets/signupbg.dart';
 
 class OTPPage extends StatefulWidget {
   const OTPPage({super.key});

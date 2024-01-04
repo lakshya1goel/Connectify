@@ -1,10 +1,10 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
-import 'package:connectify/views/widgets/authentication/forgotbg.dart';
+import 'package:connectify/authentication/forgotPass/views/widgets/forgotbg.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
-import '../../../utils/routes/app_route_constants.dart';
-import '../../widgets/authentication/signupbg.dart';
+import '../../../../utils/routes/app_route_constants.dart';
+import '../../../signup/views/widgets/signupbg.dart';
 
 class OTPVerificationPage extends StatefulWidget {
   const OTPVerificationPage({super.key});

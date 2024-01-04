@@ -1,19 +1,19 @@
-import 'package:connectify/views/widgets/authentication/forgotbg.dart';
-import 'package:connectify/views/widgets/authentication/signupbg.dart';
+import 'package:connectify/authentication/forgotPass/views/widgets/forgotbg.dart';
+import 'package:connectify/authentication/signup/views/widgets/signupbg.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../utils/contants/colors/app_colors.dart';
-import '../../../utils/routes/app_route_constants.dart';
+import '../../../../utils/contants/colors/app_colors.dart';
+import '../../../../utils/routes/app_route_constants.dart';
 
-class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({super.key});
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
-  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
-class _ResetPasswordPageState extends State<ResetPasswordPage> {
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -23,7 +23,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Forgotbg(first: "Reset", second: "Password",),
+              Forgotbg(first: "Forgot", second: "Password?",),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width*0.05, vertical: size.height*0.02),
+                child: Text("Enter you registered email"),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width*0.05, vertical: size.height*0.02),
                 child: Form(
@@ -34,27 +38,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         children: [
                           TextFormField(
                             decoration: InputDecoration(
-                              labelText: 'New Password',
-                              labelStyle: TextStyle(color: AppColors.textColor),
-                              contentPadding: EdgeInsets.only(bottom: size.height*0.01),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppColors.buttonColor,
-                                  width: size.height*0.003,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppColors.underlineColor,
-                                  width: size.height*0.003,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: size.height*0.03,),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Confirm New Password',
+                              labelText: 'Email',
                               labelStyle: TextStyle(color: AppColors.textColor),
                               contentPadding: EdgeInsets.only(bottom: size.height*0.01),
                               focusedBorder: UnderlineInputBorder(
@@ -84,7 +68,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   width: size.width*0.9,
                   child: ElevatedButton(
                       onPressed: () {
-                        GoRouter.of(context).pushNamed(MyAppRouteConstants.LoginRouteName);
+                        GoRouter.of(context).pushNamed(MyAppRouteConstants.OTPVerificationRouteName);
                       },
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(

@@ -1,11 +1,11 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
-import 'package:connectify/views/screens/authentication/login.dart';
-import 'package:connectify/views/screens/authentication/otpPage.dart';
+import 'package:connectify/authentication/login/views/sreens/login.dart';
+import 'package:connectify/authentication/signup/views/screens/otpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../utils/routes/app_route_constants.dart';
-import '../../widgets/authentication/signupbg.dart';
+import '../../../../utils/routes/app_route_constants.dart';
+import '../widgets/signupbg.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
