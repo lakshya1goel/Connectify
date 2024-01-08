@@ -1,9 +1,20 @@
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/utils/routes/app_route_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
+import 'authentication/login/provider/login_provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  await dotenv.load(fileName: ".env");
+  runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => LoginProvider()),
+        ],
+        child: const MyApp(),
+      ),
+  );
 }
 
 class MyApp extends StatelessWidget {

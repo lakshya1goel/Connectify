@@ -1,3 +1,4 @@
+import 'package:connectify/home.dart';
 import 'package:connectify/utils/routes/app_route_constants.dart';
 import 'package:connectify/authentication/forgotPass/views/screens/forgotPasswordPage.dart';
 import 'package:connectify/authentication/login/views/sreens/login.dart';
@@ -65,5 +66,12 @@ import 'package:go_router/go_router.dart';
             )
           ],
       ),
+      GoRoute(
+        name: MyAppRouteConstants.HomeRouteName,
+        path: '/home',
+        pageBuilder: (context, state) {
+          return const MaterialPage(child: HomePage());
+        }
+      )
     ],
   );

@@ -1,7 +1,11 @@
+import 'package:connectify/authentication/login/controllers/login_controller.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/utils/routes/app_route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../../models/login_user_model.dart';
+import '../../provider/login_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,9 +15,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String errorMsg = "";
+  TextEditingController email_controller = TextEditingController();
+  TextEditingController pass_controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final loginProvider = Provider.of<LoginProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -43,7 +51,11 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         children: [
                           TextFormField(
+                            style: TextStyle(color: AppColors.textColor),
+                            controller: email_controller,
+                            onChanged: (value) => loginProvider.setEmail(value),
                             decoration: InputDecoration(
+                              errorText: (loginProvider.emailError == '')? null : loginProvider.emailError,
                               labelText: 'Email',
                               labelStyle: TextStyle(color: AppColors.textColor),
                               contentPadding: EdgeInsets.only(bottom: size.height*0.01),
@@ -63,7 +75,11 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           SizedBox(height: size.height*0.03,),
                           TextFormField(
+                            style: TextStyle(color: AppColors.textColor),
+                            controller: pass_controller,
+                            onChanged: (value) => loginProvider.setPassword(value),
                             decoration: InputDecoration(
+                              errorText: (loginProvider.passwordError == '')? null : loginProvider.passwordError,
                                 labelText: 'Password',
                                 labelStyle: TextStyle(color: AppColors.textColor),
                               contentPadding: EdgeInsets.only(bottom: size.height*0.01),
@@ -110,7 +126,15 @@ class _LoginPageState extends State<LoginPage> {
                   height: size.height*0.06,
                   width: size.width*0.9,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async{
+                        LoginUserModel? res = await performLogin(email_controller.text.toString(), pass_controller.text.toString());
+                        if (res != null) {
+                          loginProvider.validateLogin(res.msg, context);
+
+                        } else {
+                          loginProvider.validateLogin("Invalid Credentials!", context);
+                        }
+                      },
                       child: Text("Login"),
                     style: ElevatedButton.styleFrom(
                       elevation: 0,

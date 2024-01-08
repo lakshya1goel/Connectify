@@ -1,0 +1,57 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:go_router/go_router.dart';
+import '../../../utils/routes/app_route_constants.dart';
+import '../controllers/validations.dart';
+
+class LoginProvider extends ChangeNotifier {
+  String _email = '';
+  String _password = '';
+  String _emailError = '';
+  String _passwordError = '';
+
+  String get email => _email;
+  String get password => _password;
+  String get emailError => _emailError;
+  String get passwordError => _passwordError;
+
+  void setEmail(String value) {
+    _email = value;
+    _emailError = Validator.isValidEmail(value) ?? '';
+    notifyListeners();
+  }
+
+  void setPassword(String value) {
+    _password = value;
+    _passwordError = Validator.isValidPassword(value) ?? '';
+    notifyListeners();
+  }
+
+  void validateLogin(String? apiErrorMessage, BuildContext context) {
+    _emailError = '';
+    _passwordError = '';
+
+    if (_email.isEmpty) {
+      _emailError = 'Email cannot be empty';
+    } else if (Validator.isValidEmail(_email) != null) {
+      _emailError = Validator.isValidEmail(_email)!;
+    }
+
+    if (_password.isEmpty) {
+      _passwordError = 'Password cannot be empty';
+    } else if (Validator.isValidPassword(_password) != null) {
+      _passwordError = Validator.isValidPassword(_password)!;
+    }
+
+    if (apiErrorMessage != null && apiErrorMessage.isNotEmpty) {
+      _emailError = apiErrorMessage;
+      _passwordError = apiErrorMessage;
+    } else {
+      _emailError = '';
+      _passwordError = '';
+      context.goNamed(MyAppRouteConstants.HomeRouteName);
+    }
+
+    notifyListeners();
+  }
+}
