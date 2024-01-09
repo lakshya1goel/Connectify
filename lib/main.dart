@@ -1,3 +1,4 @@
+import 'package:connectify/authentication/forgotPass/views/provider/forgot_pass_provider.dart';
 import 'package:connectify/authentication/signup/provider/signup_provider.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/utils/routes/app_route_config.dart';
@@ -11,12 +12,12 @@ import 'package:permission_handler/permission_handler.dart';
 void main() async{
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
-  // PermissionHandler().setNotificationPermissionHandler();
   runApp(
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LoginProvider()),
           ChangeNotifierProvider(create: (_) => SignupProvider()),
+          ChangeNotifierProvider(create: (_) => ForgotPassProvider()),
         ],
         child: const MyApp(),
       ),

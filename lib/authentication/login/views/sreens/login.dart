@@ -15,7 +15,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String errorMsg = "";
   TextEditingController email_controller = TextEditingController();
   TextEditingController pass_controller = TextEditingController();
   @override

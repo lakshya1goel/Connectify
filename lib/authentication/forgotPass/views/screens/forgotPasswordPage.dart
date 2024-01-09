@@ -1,10 +1,10 @@
+import 'package:connectify/authentication/forgotPass/views/controllers/forgot_pass_controller.dart';
+import 'package:connectify/authentication/forgotPass/views/models/forgot_pass_model.dart';
+import 'package:connectify/authentication/forgotPass/views/provider/forgot_pass_provider.dart';
 import 'package:connectify/authentication/forgotPass/views/widgets/forgotbg.dart';
-import 'package:connectify/authentication/signup/views/widgets/signupbg.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
+import 'package:provider/provider.dart';
 import '../../../../utils/contants/colors/app_colors.dart';
-import '../../../../utils/routes/app_route_constants.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -17,6 +17,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final forgotPassProvider = Provider.of<ForgotPassProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -37,7 +38,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       child: Column(
                         children: [
                           TextFormField(
+                            style: TextStyle(color: AppColors.textColor),
+                            onChanged: (value) => forgotPassProvider.setEmail(value),
                             decoration: InputDecoration(
+                              errorText: (forgotPassProvider.emailError == '')? null : forgotPassProvider.emailError,
                               labelText: 'Email',
                               labelStyle: TextStyle(color: AppColors.textColor),
                               contentPadding: EdgeInsets.only(bottom: size.height*0.01),
@@ -67,8 +71,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   height: size.height*0.06,
                   width: size.width*0.9,
                   child: ElevatedButton(
-                      onPressed: () {
-                        GoRouter.of(context).pushNamed(MyAppRouteConstants.OTPVerificationRouteName);
+                      onPressed: () async{
+                        if(forgotPassProvider.email.isNotEmpty) {
+                          ForgotPassModel? res = await sendOTP(
+                              forgotPassProvider.email);
+                          if (res != null) {
+                            forgotPassProvider.validateEmail(res.msg, context);
+                          } else {
+                            forgotPassProvider.validateEmail("Invalid Email", context);
+                          }
+                        } else {
+                          forgotPassProvider.validateEmail("Email Cannot be Empty!", context);
+                        }
                       },
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(
