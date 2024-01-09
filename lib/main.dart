@@ -2,12 +2,16 @@ import 'package:connectify/authentication/signup/provider/signup_provider.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/utils/routes/app_route_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'authentication/login/provider/login_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() async{
   await dotenv.load(fileName: ".env");
+  WidgetsFlutterBinding.ensureInitialized();
+  // PermissionHandler().setNotificationPermissionHandler();
   runApp(
       MultiProvider(
         providers: [
@@ -24,6 +28,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Connectify',

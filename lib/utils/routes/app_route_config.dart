@@ -1,7 +1,6 @@
 import 'package:connectify/home.dart';
 import 'package:connectify/utils/routes/app_route_constants.dart';
 import 'package:connectify/authentication/forgotPass/views/screens/forgotPasswordPage.dart';
-import 'package:connectify/authentication/login/views/sreens/login.dart';
 import 'package:connectify/authentication/signup/views/screens/otpPage.dart';
 import 'package:connectify/authentication/forgotPass/views/screens/otpVerificationPage.dart';
 import 'package:connectify/authentication/signup/views/screens/profilePicSeletionScreen.dart';
@@ -17,7 +16,7 @@ import 'package:go_router/go_router.dart';
         name: MyAppRouteConstants.LoginRouteName,
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const LoginPage();
+          return const ProfilePicSelectionPage();
         },
       ),
       GoRoute(
