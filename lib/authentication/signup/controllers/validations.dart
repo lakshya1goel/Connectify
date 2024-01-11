@@ -45,4 +45,11 @@ class Validator {
     return null;
   }
 
+  static String? isValidUserId(String userId) {
+    if(userId.isEmpty) {
+      return "Username Cannot be Empty";
+    }
+    return null;
+  }
+
 }

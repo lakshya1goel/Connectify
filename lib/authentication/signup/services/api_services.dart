@@ -28,4 +28,27 @@ class ApiService {
       return {'success': false, 'error': 'Error: $error'};
     }
   }
+
+  Future<Map<String, dynamic>> selectAvatar(String email, String userId, String url) async {
+    final Map<String, String> headers = {'Content-Type': 'application/json'};
+    final Map<String, String> body = {'email' : email, 'userId': userId, 'profileImageUrl': url};
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: headers,
+        body: jsonEncode(body),
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        return responseData;
+      } else {
+        print(response.body);
+        throw Exception('Failed: ${response.body}');
+      }
+    } catch (error) {
+      return {'success': false, 'error': 'Error: $error'};
+    }
+  }
 }

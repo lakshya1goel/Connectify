@@ -36,9 +36,9 @@ import 'package:go_router/go_router.dart';
             ),
             GoRoute(
                 name: MyAppRouteConstants.ProfilePicSelectionRouteName,
-                path: 'profile_pic_selection_page',
+                path: 'profile_pic_selection_page/:email',
                 pageBuilder: (context, state) {
-                  return const MaterialPage(child: ProfilePicSelectionPage());
+                  return MaterialPage(child: ProfilePicSelectionPage(email: state.pathParameters['email'],));
                 }
             )
           ],

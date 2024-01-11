@@ -1,4 +1,5 @@
 import 'package:connectify/authentication/forgotPass/provider/forgot_pass_provider.dart';
+import 'package:connectify/authentication/signup/provider/avatar_selection_provider.dart';
 import 'package:connectify/authentication/signup/provider/signup_provider.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/utils/routes/app_route_config.dart';
@@ -18,6 +19,7 @@ void main() async{
           ChangeNotifierProvider(create: (_) => LoginProvider()),
           ChangeNotifierProvider(create: (_) => SignupProvider()),
           ChangeNotifierProvider(create: (_) => ForgotPassProvider()),
+          ChangeNotifierProvider(create: (_) => AvatarProvider()),
         ],
         child: const MyApp(),
       ),

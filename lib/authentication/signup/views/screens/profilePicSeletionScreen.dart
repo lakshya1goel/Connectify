@@ -1,12 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:connectify/authentication/signup/controllers/select_avatar_controller.dart';
+import 'package:connectify/authentication/signup/models/signup_model.dart';
+import 'package:connectify/authentication/signup/provider/avatar_selection_provider.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import '../../../../utils/routes/app_route_constants.dart';
+import '../../controllers/validations.dart';
 
 class ProfilePicSelectionPage extends StatefulWidget {
-  const ProfilePicSelectionPage({super.key});
+  final String? email;
+  const ProfilePicSelectionPage({super.key, required this.email});
 
   @override
   State<ProfilePicSelectionPage> createState() => _ProfilePicSelectionPageState();
@@ -19,7 +25,7 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
       print("File not Picked yet");
     }
   }
-  String selectedAvatar = "";
+  String selectedAvatar = "https://connectifystorage.s3.ap-south-1.amazonaws.com/resources/avatars/None.png";
   int currentCarouselIndex = 0;
   List<String> avatarUrls = [
     "https://connectifystorage.s3.ap-south-1.amazonaws.com/resources/avatars/None.png",
@@ -33,6 +39,7 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final avatarProvider = Provider.of<AvatarProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -53,7 +60,7 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                   SizedBox(height: size.height*0.05,),
                   Padding(
                     padding: EdgeInsets.only(left: size.width*0.05),
-                    child: Image.asset("assets/images/progressBar3.png"),
+                    child: Image.asset("assets/images/progressBar2.png"),
                   ),
                   SizedBox(height: size.height*0.05,),
                   Padding(
@@ -72,6 +79,7 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                         onPageChanged: (index, reason) {
                           setState(() {
                             currentCarouselIndex = index;
+                            selectedAvatar = avatarUrls[currentCarouselIndex];
                           });
                         },
                         viewportFraction: 0.28,
@@ -106,14 +114,9 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
+                                    backgroundColor: AppColors.buttonColor,
                                     title: Text("Pick an Image"),
                                     actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text("Cancel"),
-                                      ),
                                       TextButton(
                                         onPressed: () async {
                                           await _pickImage(ImageSource.camera);
@@ -127,6 +130,12 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                                           Navigator.of(context).pop();
                                         },
                                         child: Text("Pick from Gallery"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text("Cancel"),
                                       ),
                                     ],
                                   );
@@ -155,10 +164,13 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width*0.05),
                     child: Form(
-                      autovalidateMode: AutovalidateMode.always,
+                      key: avatarProvider.formKey,
                       child: TextFormField(
+                        style: TextStyle(color: AppColors.textColor),
+                        onChanged: (value) => avatarProvider.setUserName(value),
                         decoration: InputDecoration(
                           labelText: 'Username',
+                          errorText: (avatarProvider.userIdError == '')? null : avatarProvider.userIdError,
                           labelStyle: TextStyle(color: AppColors.textColor),
                           contentPadding: EdgeInsets.only(bottom: size.height*0.01),
                           focusedBorder: UnderlineInputBorder(
@@ -174,6 +186,7 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                             ),
                           ),
                         ),
+                        validator: (value) => Validator.isValidUserId(value!),
                       ),
                     ),
                   ),
@@ -184,8 +197,22 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                       height: size.height*0.06,
                       width: size.width*0.9,
                       child: ElevatedButton(
-                          onPressed: () {
-                            context.goNamed(MyAppRouteConstants.LoginRouteName);
+                          onPressed: () async{
+                            // print(selectedAvatar);
+                            // print(avatarProvider.userId);
+                            // print(widget.email.toString());
+                            if (avatarProvider.formKey.currentState!.validate()) {
+                              print(selectedAvatar);
+                              print(avatarProvider.userId);
+                              print(widget.email.toString());
+                              SignUpModel? res = await uploadAvatar(widget.email.toString(), avatarProvider.userId, selectedAvatar);
+                              if (res != null) {
+                                avatarProvider.validateUser(res.msg, context);
+                              } else {
+                                avatarProvider.validateUser(
+                                    "An error occured, Please try again later", context);
+                              }
+                            }
                           },
                           child: Text("Finish"),
                           style: ElevatedButton.styleFrom(

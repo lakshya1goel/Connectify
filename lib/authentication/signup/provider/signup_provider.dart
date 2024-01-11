@@ -79,7 +79,7 @@ class SignupProvider extends ChangeNotifier {
       _emailError = '';
       _passwordError = '';
       _confirmError = '';
-      context.goNamed(MyAppRouteConstants.ProfilePicSelectionRouteName);
+      context.goNamed(MyAppRouteConstants.ProfilePicSelectionRouteName, pathParameters: {'email' : _email});
     }
 
     notifyListeners();
