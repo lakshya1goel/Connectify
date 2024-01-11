@@ -1,4 +1,4 @@
-import 'package:connectify/authentication/forgotPass/views/provider/forgot_pass_provider.dart';
+import 'package:connectify/authentication/forgotPass/provider/forgot_pass_provider.dart';
 import 'package:connectify/authentication/signup/provider/signup_provider.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/utils/routes/app_route_config.dart';

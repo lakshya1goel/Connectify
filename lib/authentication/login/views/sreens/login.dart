@@ -1,4 +1,5 @@
 import 'package:connectify/authentication/login/controllers/login_controller.dart';
+import 'package:connectify/authentication/login/controllers/validations.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/utils/routes/app_route_constants.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width*0.05, vertical: size.height*0.02),
                   child: Form(
-                      autovalidateMode: AutovalidateMode.always,
+                      key: loginProvider.formKey,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -68,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                               ),
+                              validator: (value) => Validator.isValidEmail(value!),
                             ),
                             SizedBox(height: size.height*0.05,),
                             TextFormField(
@@ -92,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                               ),
+                              validator: (value) => Validator.isValidPassword(value!),
                             ),
                           ],
                         ),
@@ -122,13 +125,17 @@ class _LoginPageState extends State<LoginPage> {
                     height: size.height*0.06,
                     width: size.width*0.9,
                     child: ElevatedButton(
-                        onPressed: () async{
-                          LoginUserModel? res = await performLogin(email_controller.text.toString(), pass_controller.text.toString());
-                          if (res != null) {
-                            loginProvider.validateLogin(res.msg, context);
-              
-                          } else {
-                            loginProvider.validateLogin("Invalid Credentials!", context);
+                        onPressed: () async {
+                          if (loginProvider.formKey.currentState!.validate()) {
+                            LoginUserModel? res = await performLogin(
+                                email_controller.text.toString(),
+                                pass_controller.text.toString());
+                            if (res != null) {
+                              loginProvider.validateLogin(res.msg, context);
+                            } else {
+                              loginProvider.validateLogin(
+                                  "Invalid Credentials!", context);
+                            }
                           }
                         },
                         child: Text("Login"),
@@ -186,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 )
               ],
-                          ),
+              ),
             ],
           ),
         ),

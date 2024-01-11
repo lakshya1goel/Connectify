@@ -23,7 +23,7 @@ class Validator {
     if (password.isEmpty) {
       return "Password Cannot be empty";
     }
-    final passwordRegex = RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$');
+    final passwordRegex = RegExp(r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$');
     bool isValidFormat = passwordRegex.hasMatch(password);
 
     if (password.length < 8) {
@@ -36,9 +36,11 @@ class Validator {
     return null;
   }
 
-  static String? isValidConfirm(String password) {
+  static String? isValidConfirm(String password, String pass) {
     if (password.isEmpty) {
       return "Confirm Password Cannot be empty";
+    } else if(password != pass) {
+      return "Password Mismatch";
     }
     return null;
   }

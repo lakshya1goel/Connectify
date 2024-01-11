@@ -1,5 +1,5 @@
-import 'package:connectify/authentication/forgotPass/views/models/forgot_pass_model.dart';
-import 'package:connectify/authentication/forgotPass/views/services/api_services.dart';
+import 'package:connectify/authentication/forgotPass/models/forgot_pass_model.dart';
+import 'package:connectify/authentication/forgotPass/services/api_services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<ForgotPassModel?> sendOTP(String email) async {

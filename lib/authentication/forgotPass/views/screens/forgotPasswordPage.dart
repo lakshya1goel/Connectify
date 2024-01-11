@@ -1,6 +1,6 @@
-import 'package:connectify/authentication/forgotPass/views/controllers/forgot_pass_controller.dart';
-import 'package:connectify/authentication/forgotPass/views/models/forgot_pass_model.dart';
-import 'package:connectify/authentication/forgotPass/views/provider/forgot_pass_provider.dart';
+import 'package:connectify/authentication/forgotPass/controllers/forgot_pass_controller.dart';
+import 'package:connectify/authentication/forgotPass/models/forgot_pass_model.dart';
+import 'package:connectify/authentication/forgotPass/provider/forgot_pass_provider.dart';
 import 'package:connectify/authentication/forgotPass/views/widgets/forgotbg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

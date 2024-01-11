@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/routes/app_route_constants.dart';
 import '../../controllers/signup_controller.dart';
+import 'package:connectify/authentication/signup/controllers/validations.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -48,7 +49,7 @@ class _SignupPageState extends State<SignupPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width*0.05, vertical: size.height*0.02),
                     child: Form(
-                        autovalidateMode: AutovalidateMode.always,
+                      key: signupProvider.formKey,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
@@ -75,6 +76,7 @@ class _SignupPageState extends State<SignupPage> {
                                     ),
                                   ),
                                 ),
+                                validator: (value) => Validator.isValidName(value!),
                               ),
                               SizedBox(height: size.height*0.03,),
                               TextFormField(
@@ -99,6 +101,7 @@ class _SignupPageState extends State<SignupPage> {
                                     ),
                                   ),
                                 ),
+                                validator: (value) => Validator.isValidEmail(value!),
                               ),
                               SizedBox(height: size.height*0.03,),
                               TextFormField(
@@ -123,6 +126,7 @@ class _SignupPageState extends State<SignupPage> {
                                     ),
                                   ),
                                 ),
+                                validator: (value) => Validator.isValidPassword(value!),
                               ),
                               SizedBox(height: size.height*0.03,),
                               TextFormField(
@@ -147,6 +151,7 @@ class _SignupPageState extends State<SignupPage> {
                                     ),
                                   ),
                                 ),
+                                validator: (value) => Validator.isValidConfirm(value!, pass_controller.text.toString()),
                               ),
                             ],
                           ),
@@ -161,12 +166,17 @@ class _SignupPageState extends State<SignupPage> {
                       width: size.width*0.9,
                       child: ElevatedButton(
                           onPressed: () async{
-                            SignUpModel? res = await performRegisteration(name_controller.text.toString(), email_controller.text.toString(), pass_controller.text.toString());
-                            if (res != null) {
-                              signupProvider.validateSignup(res.msg, context);
-
-                            } else {
-                              signupProvider.validateSignup("User already exists!", context);
+                            if(signupProvider.formKey.currentState!.validate()) {
+                              SignUpModel? res = await performRegisteration(
+                                  name_controller.text.toString(),
+                                  email_controller.text.toString(),
+                                  pass_controller.text.toString());
+                              if (res != null) {
+                                signupProvider.validateSignup(res.msg, context);
+                              } else {
+                                signupProvider.validateSignup(
+                                    "User already Registered", context);
+                              }
                             }
                           },
                           child: Text("Next"),

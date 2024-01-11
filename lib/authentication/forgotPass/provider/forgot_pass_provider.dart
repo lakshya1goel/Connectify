@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../utils/routes/app_route_constants.dart';
+import '../../../utils/routes/app_route_constants.dart';
 import '../controllers/validations.dart';
 
 class ForgotPassProvider extends ChangeNotifier {

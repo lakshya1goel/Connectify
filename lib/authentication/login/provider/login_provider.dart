@@ -5,6 +5,9 @@ import '../../../utils/routes/app_route_constants.dart';
 import '../controllers/validations.dart';
 
 class LoginProvider extends ChangeNotifier {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> get formKey => _formKey;
+
   String _email = '';
   String _password = '';
   String _emailError = '';

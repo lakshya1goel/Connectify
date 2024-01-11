@@ -5,6 +5,9 @@ import 'package:go_router/go_router.dart';
 import '../../../utils/routes/app_route_constants.dart';
 
 class SignupProvider extends ChangeNotifier {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> get formKey => _formKey;
+
   String _name = '';
   String _email = '';
   String _password = '';
@@ -43,7 +46,7 @@ class SignupProvider extends ChangeNotifier {
 
   void setConfirm(String value) {
     _confirm = value;
-    _confirmError = Validator.isValidConfirm(value) ?? '';
+    _confirmError = Validator.isValidConfirm(value, _password) ?? '';
     notifyListeners();
   }
 
@@ -65,25 +68,18 @@ class SignupProvider extends ChangeNotifier {
       _passwordError = Validator.isValidPassword(_password)!;
     }
 
-    if (Validator.isValidConfirm(_confirm) != null) {
-      _confirmError = Validator.isValidConfirm(_confirm)!;
-    }
-
-    if(_password != _confirm) {
-      _confirmError = 'Password Mismatch!';
+    if (Validator.isValidConfirm(_confirm, _password) != null) {
+      _confirmError = Validator.isValidConfirm(_confirm, _password)!;
     }
 
     if (apiErrorMessage != null && apiErrorMessage.isNotEmpty) {
-      _nameError = apiErrorMessage;
       _emailError = apiErrorMessage;
-      _passwordError = apiErrorMessage;
-      _confirmError = apiErrorMessage;
     } else {
       _nameError = '';
       _emailError = '';
       _passwordError = '';
       _confirmError = '';
-      context.goNamed(MyAppRouteConstants.OTPPageRouteName);
+      context.goNamed(MyAppRouteConstants.ProfilePicSelectionRouteName);
     }
 
     notifyListeners();
