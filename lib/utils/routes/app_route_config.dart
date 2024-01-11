@@ -52,9 +52,9 @@ import 'package:go_router/go_router.dart';
           routes: <RouteBase>[
             GoRoute(
                 name: MyAppRouteConstants.OTPVerificationRouteName,
-                path: 'otp_verification_page',
+                path: 'otp_verification_page/:email',
                 pageBuilder: (context, state) {
-                  return const MaterialPage(child: OTPVerificationPage());
+                  return MaterialPage(child: OTPVerificationPage(email: state.pathParameters['email']));
                 }
             ),
             GoRoute(

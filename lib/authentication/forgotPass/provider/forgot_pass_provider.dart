@@ -30,7 +30,7 @@ class ForgotPassProvider extends ChangeNotifier {
       _emailError = apiErrorMessage;
     } else {
       _emailError = '';
-      GoRouter.of(context).pushNamed(MyAppRouteConstants.OTPVerificationRouteName);
+      GoRouter.of(context).pushNamed(MyAppRouteConstants.OTPVerificationRouteName, pathParameters: {'email' : _email});
     }
 
     notifyListeners();

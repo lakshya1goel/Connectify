@@ -1,13 +1,15 @@
+import 'package:connectify/authentication/forgotPass/controllers/otp_controller.dart';
+import 'package:connectify/authentication/forgotPass/provider/otp_provider.dart';
+import 'package:connectify/authentication/signup/models/signup_model.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/authentication/forgotPass/views/widgets/forgotbg.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
-import '../../../../utils/routes/app_route_constants.dart';
-import '../../../signup/views/widgets/signupbg.dart';
-
+import 'package:provider/provider.dart';
 class OTPVerificationPage extends StatefulWidget {
-  const OTPVerificationPage({super.key});
+  final String? email;
+  const OTPVerificationPage({super.key, required this.email});
 
   @override
   State<OTPVerificationPage> createState() => _OTPVerificationPageState();
@@ -17,6 +19,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final otpProvider = Provider.of<ResetOtpProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -41,6 +44,16 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                 padding: EdgeInsets.symmetric(horizontal: size.width*0.05),
                 child: Form(
                   child: Pinput(
+                    forceErrorState: otpProvider.error == ''? false: true,
+                    errorText: otpProvider.error == ''? null : otpProvider.error,
+                    onChanged: (otp) {
+                      if(otp.length < 4) {
+                        otpProvider.setOtp(otp, "Enter a Valid OTP");
+                      }
+                      else {
+                        otpProvider.setOtp(otp, '');
+                      }
+                    },
                     defaultPinTheme: PinTheme(
                       textStyle: TextStyle(
                         fontSize: size.width*0.05,
@@ -72,8 +85,14 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                   height: size.height*0.06,
                   width: size.width*0.9,
                   child: ElevatedButton(
-                      onPressed: () {
-                        GoRouter.of(context).pushNamed(MyAppRouteConstants.ResetPasswordRouteName);
+                      onPressed: () async{
+                        SignUpModel? res = await verifyOTP(widget.email.toString(), otpProvider.otp);
+                        if (res != null) {
+                          otpProvider.validateAndSubmitOtp(res.msg, context);
+                        } else {
+                          otpProvider.validateAndSubmitOtp(
+                              "Invalid OTP", context);
+                        }
                       },
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(

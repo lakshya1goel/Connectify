@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'authentication/forgotPass/provider/otp_provider.dart';
 import 'authentication/login/provider/login_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -22,6 +23,7 @@ void main() async{
           ChangeNotifierProvider(create: (_) => ForgotPassProvider()),
           ChangeNotifierProvider(create: (_) => AvatarProvider()),
           ChangeNotifierProvider(create: (_) => OtpProvider()),
+          ChangeNotifierProvider(create: (_) => ResetOtpProvider()),
         ],
         child: const MyApp(),
       ),
