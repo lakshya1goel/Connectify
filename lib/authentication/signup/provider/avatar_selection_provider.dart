@@ -20,14 +20,14 @@ class AvatarProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void validateUser(String? apiErrorMessage, BuildContext context) {
+  void validateUser(String? apiErrorMessage, BuildContext context, String email) {
     _userIdError = '';
 
     if (Validator.isValidUserId(_userId) != null) {
       _userIdError = Validator.isValidName(_userId)!;
     } else {
       _userIdError = '';
-      context.goNamed(MyAppRouteConstants.OTPPageRouteName);
+      context.goNamed(MyAppRouteConstants.OTPPageRouteName, pathParameters: {'email' : email});
     }
 
     notifyListeners();

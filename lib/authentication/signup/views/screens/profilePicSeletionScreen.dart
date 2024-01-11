@@ -4,10 +4,8 @@ import 'package:connectify/authentication/signup/models/signup_model.dart';
 import 'package:connectify/authentication/signup/provider/avatar_selection_provider.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import '../../../../utils/routes/app_route_constants.dart';
 import '../../controllers/validations.dart';
 
 class ProfilePicSelectionPage extends StatefulWidget {
@@ -207,10 +205,10 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                               print(widget.email.toString());
                               SignUpModel? res = await uploadAvatar(widget.email.toString(), avatarProvider.userId, selectedAvatar);
                               if (res != null) {
-                                avatarProvider.validateUser(res.msg, context);
+                                avatarProvider.validateUser(res.msg, context, widget.email.toString());
                               } else {
                                 avatarProvider.validateUser(
-                                    "An error occured, Please try again later", context);
+                                    "An error occured, Please try again later", context, widget.email.toString());
                               }
                             }
                           },

@@ -29,9 +29,9 @@ import 'package:go_router/go_router.dart';
           routes: <RouteBase>[
             GoRoute(
                 name: MyAppRouteConstants.OTPPageRouteName,
-                path: 'otp_page',
+                path: 'otp_page/:email',
                 pageBuilder: (context, state) {
-                  return const MaterialPage(child: OTPPage());
+                  return MaterialPage(child: OTPPage(email: state.pathParameters['email']));
                 }
             ),
             GoRoute(
