@@ -88,10 +88,10 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                       onPressed: () async{
                         SignUpModel? res = await verifyOTP(widget.email.toString(), otpProvider.otp);
                         if (res != null) {
-                          otpProvider.validateAndSubmitOtp(res.msg, context);
+                          otpProvider.validateAndSubmitOtp(res.msg, context, widget.email.toString());
                         } else {
                           otpProvider.validateAndSubmitOtp(
-                              "Invalid OTP", context);
+                              "Invalid OTP", context, widget.email.toString());
                         }
                       },
                       child: Text("Next"),

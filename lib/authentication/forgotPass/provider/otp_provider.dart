@@ -15,7 +15,7 @@ class ResetOtpProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void validateAndSubmitOtp(String? apiErrorMessage, BuildContext context) {
+  void validateAndSubmitOtp(String? apiErrorMessage, BuildContext context, String email) {
     _error = '';
     if (_otp.isEmpty) {
       _error = 'OTP cannot be empty';
@@ -24,7 +24,7 @@ class ResetOtpProvider extends ChangeNotifier {
       _error = apiErrorMessage;
     } else {
       _error = '';
-      context.goNamed(MyAppRouteConstants.ResetPasswordRouteName);
+      context.goNamed(MyAppRouteConstants.ResetPasswordRouteName, pathParameters: {'email' : email});
     }
 
     notifyListeners();

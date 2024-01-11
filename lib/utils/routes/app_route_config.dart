@@ -59,9 +59,9 @@ import 'package:go_router/go_router.dart';
             ),
             GoRoute(
                 name: MyAppRouteConstants.ResetPasswordRouteName,
-                path: 'reset_password_page',
+                path: 'reset_password_page/:email',
                 pageBuilder: (context, state) {
-                  return const MaterialPage(child: ResetPasswordPage());
+                  return MaterialPage(child: ResetPasswordPage(email: state.pathParameters['email']));
                 }
             )
           ],
