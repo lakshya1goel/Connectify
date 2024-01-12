@@ -1,5 +1,6 @@
 import 'package:connectify/authentication/login/controllers/login_controller.dart';
 import 'package:connectify/authentication/login/controllers/validations.dart';
+import 'package:connectify/authentication/login/services/google_signin.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/utils/routes/app_route_constants.dart';
 import 'package:flutter/material.dart';
@@ -157,7 +158,10 @@ class _LoginPageState extends State<LoginPage> {
                     height: size.height*0.06,
                     width: size.width*0.9,
                     child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          print("pressed");
+                          signIn(context);
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
