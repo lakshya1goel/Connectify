@@ -1,5 +1,6 @@
 import 'package:connectify/authentication/forgotPass/provider/forgot_pass_provider.dart';
 import 'package:connectify/authentication/forgotPass/provider/reset_password_provider.dart';
+import 'package:connectify/authentication/login/provider/loading_provider.dart';
 import 'package:connectify/authentication/signup/provider/avatar_selection_provider.dart';
 import 'package:connectify/authentication/signup/provider/otp_provider.dart';
 import 'package:connectify/authentication/signup/provider/signup_provider.dart';
@@ -26,6 +27,7 @@ void main() async{
           ChangeNotifierProvider(create: (_) => OtpProvider()),
           ChangeNotifierProvider(create: (_) => ResetOtpProvider()),
           ChangeNotifierProvider(create: (_) => ResetPasswordProvider()),
+          ChangeNotifierProvider(create: (_) => LoadingProvider()),
         ],
         child: const MyApp(),
       ),

@@ -1,5 +1,6 @@
 import 'package:connectify/authentication/login/controllers/login_controller.dart';
 import 'package:connectify/authentication/login/controllers/validations.dart';
+import 'package:connectify/authentication/login/provider/loading_provider.dart';
 import 'package:connectify/authentication/login/services/google_signin.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:connectify/utils/routes/app_route_constants.dart';
@@ -8,6 +9,10 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../models/login_user_model.dart';
 import '../../provider/login_provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:http/http.dart' as http;
+
+import '../widgets/loading.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final loginProvider = Provider.of<LoginProvider>(context);
+    final loadingProvider = Provider.of<LoadingProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -128,9 +134,13 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                         onPressed: () async {
                           if (loginProvider.formKey.currentState!.validate()) {
+                            loadingProvider.setLoading(true);
+                            loadingProvider.showCustomLoadingDialog(context);
                             LoginUserModel? res = await performLogin(
                                 email_controller.text.toString(),
                                 pass_controller.text.toString());
+                            loadingProvider.setLoading(false);
+                            loadingProvider.hideCustomLoadingDialog(context);
                             if (res != null) {
                               loginProvider.validateLogin(res.msg, context);
                             } else {
@@ -151,6 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                // loadingProvider.isLoading ? showCustomLoadingDialog() : SizedBox(height: 0,),
                 SizedBox(height: size.height*0.03,),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width*0.05),
@@ -202,6 +213,16 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: (){
+      //     showDialog(
+      //       context: context,
+      //       builder: (BuildContext context) {
+      //         return CustomLoadingIndicator();
+      //       },
+      //     );
+      //   },
+      // ),
     );
   }
 }
