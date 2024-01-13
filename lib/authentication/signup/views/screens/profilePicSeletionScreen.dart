@@ -6,6 +6,7 @@ import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import '../../../login/provider/loading_provider.dart';
 import '../../controllers/validations.dart';
 
 class ProfilePicSelectionPage extends StatefulWidget {
@@ -38,6 +39,7 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final avatarProvider = Provider.of<AvatarProvider>(context);
+    final loadingProvider = Provider.of<LoadingProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -200,10 +202,14 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                             // print(avatarProvider.userId);
                             // print(widget.email.toString());
                             if (avatarProvider.formKey.currentState!.validate()) {
+                              loadingProvider.setLoading(true);
+                              loadingProvider.showCustomLoadingDialog(context);
                               print(selectedAvatar);
                               print(avatarProvider.userId);
                               print(widget.email.toString());
                               SignUpModel? res = await uploadAvatar(widget.email.toString(), avatarProvider.userId, selectedAvatar);
+                              loadingProvider.setLoading(false);
+                              loadingProvider.hideCustomLoadingDialog(context);
                               if (res != null) {
                                 avatarProvider.validateUser(res.msg, context, widget.email.toString());
                               } else {
@@ -212,7 +218,7 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                               }
                             }
                           },
-                          child: Text("Finish"),
+                          child: Text("Next"),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             backgroundColor: AppColors.buttonColor,

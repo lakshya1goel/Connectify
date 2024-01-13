@@ -9,10 +9,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../models/login_user_model.dart';
 import '../../provider/login_provider.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:http/http.dart' as http;
-
-import '../widgets/loading.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -161,7 +157,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                // loadingProvider.isLoading ? showCustomLoadingDialog() : SizedBox(height: 0,),
                 SizedBox(height: size.height*0.03,),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width*0.05),

@@ -1,3 +1,4 @@
+import 'package:connectify/authentication/forgotPass/views/screens/successScreen.dart';
 import 'package:connectify/authentication/login/views/sreens/login.dart';
 import 'package:connectify/home.dart';
 import 'package:connectify/utils/routes/app_route_constants.dart';
@@ -62,6 +63,13 @@ import 'package:go_router/go_router.dart';
                 path: 'reset_password_page/:email',
                 pageBuilder: (context, state) {
                   return MaterialPage(child: ResetPasswordPage(email: state.pathParameters['email']));
+                }
+            ),
+            GoRoute(
+                name: MyAppRouteConstants.SuccessRouteName,
+                path: 'success_screen',
+                pageBuilder: (context, state) {
+                  return MaterialPage(child: SuccessScreen());
                 }
             )
           ],

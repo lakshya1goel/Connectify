@@ -47,7 +47,7 @@ class ResetPasswordProvider extends ChangeNotifier {
     } else {
       _passwordError = '';
       _confirmError = '';
-      context.goNamed(MyAppRouteConstants.LoginRouteName);
+      context.goNamed(MyAppRouteConstants.SuccessRouteName);
     }
 
     notifyListeners();

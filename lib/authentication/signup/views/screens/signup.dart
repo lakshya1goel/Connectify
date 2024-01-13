@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/routes/app_route_constants.dart';
+import '../../../login/provider/loading_provider.dart';
 import '../../controllers/signup_controller.dart';
 import 'package:connectify/authentication/signup/controllers/validations.dart';
 
@@ -24,6 +25,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final signupProvider = Provider.of<SignupProvider>(context);
+    final loadingProvider = Provider.of<LoadingProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -167,10 +169,14 @@ class _SignupPageState extends State<SignupPage> {
                       child: ElevatedButton(
                           onPressed: () async{
                             if(signupProvider.formKey.currentState!.validate()) {
+                              loadingProvider.setLoading(true);
+                              loadingProvider.showCustomLoadingDialog(context);
                               SignUpModel? res = await performRegisteration(
                                   name_controller.text.toString(),
                                   email_controller.text.toString(),
                                   pass_controller.text.toString());
+                              loadingProvider.setLoading(false);
+                              loadingProvider.hideCustomLoadingDialog(context);
                               if (res != null) {
                                 signupProvider.validateSignup(res.msg, context);
                               } else {

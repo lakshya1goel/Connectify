@@ -3,6 +3,7 @@ import 'package:connectify/authentication/forgotPass/provider/reset_password_pro
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/contants/colors/app_colors.dart';
+import '../../../login/provider/loading_provider.dart';
 import '../../../signup/controllers/validations.dart';
 import '../../models/forgot_pass_model.dart';
 
@@ -19,6 +20,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final resetPassProvider = Provider.of<ResetPasswordProvider>(context);
+    final loadingProvider = Provider.of<LoadingProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -111,7 +113,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       child: ElevatedButton(
                           onPressed: () async{
                             if(resetPassProvider.formKey.currentState!.validate()) {
+                              loadingProvider.setLoading(true);
+                              loadingProvider.showCustomLoadingDialog(context);
                               ForgotPassModel? res = await performReset(widget.email.toString(), resetPassProvider.password);
+                              loadingProvider.setLoading(false);
+                              loadingProvider.hideCustomLoadingDialog(context);
                               if (res != null) {
                                 resetPassProvider.validateReset(res.msg, context);
                               } else {

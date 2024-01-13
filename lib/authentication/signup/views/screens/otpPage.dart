@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/routes/app_route_constants.dart';
+import '../../../login/provider/loading_provider.dart';
 import '../../models/signup_model.dart';
 import '../../provider/otp_provider.dart';
 
@@ -22,6 +23,7 @@ class _OTPPageState extends State<OTPPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final otpProvider = Provider.of<OtpProvider>(context);
+    final loadingProvider = Provider.of<LoadingProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -34,6 +36,17 @@ class _OTPPageState extends State<OTPPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: size.height*0.18,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width*0.05),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Sign up", style: TextStyle(fontSize: size.width*0.12),),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: size.height*0.05,),
                   Padding(
                     padding: EdgeInsets.only(left: size.width*0.05),
                     child: Image.asset("assets/images/progressBar3.png"),
@@ -98,7 +111,11 @@ class _OTPPageState extends State<OTPPage> {
                       width: size.width*0.9,
                       child: ElevatedButton(
                           onPressed: () async{
+                            loadingProvider.setLoading(true);
+                            loadingProvider.showCustomLoadingDialog(context);
                             LoginUserModel? res = await verifyOTP(widget.email.toString(), otpProvider.otp);
+                            loadingProvider.setLoading(false);
+                            loadingProvider.hideCustomLoadingDialog(context);
                             if (res != null) {
                               otpProvider.validateAndSubmitOtp(res.msg, context);
                             } else {
