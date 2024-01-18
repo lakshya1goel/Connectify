@@ -18,6 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _obscureText=true;
   TextEditingController email_controller = TextEditingController();
   TextEditingController pass_controller = TextEditingController();
   @override
@@ -76,10 +77,22 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             SizedBox(height: size.height*0.05,),
                             TextFormField(
+                              obscureText: _obscureText,
                               style: TextStyle(color: AppColors.textColor),
                               controller: pass_controller,
                               onChanged: (value) => loginProvider.setPassword(value),
                               decoration: InputDecoration(
+                                suffixIcon: GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      _obscureText= !_obscureText;
+                                    }
+                                    );
+                                  },
+                                  child: Icon(_obscureText ? Icons.visibility_off : Icons.visibility,
+                                    color: Colors.grey,
+                                  ),
+                                ),
                                 errorText: (loginProvider.passwordError == '')? null : loginProvider.passwordError,
                                   labelText: 'Password',
                                   labelStyle: TextStyle(color: AppColors.textColor),

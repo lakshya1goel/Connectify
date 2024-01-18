@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/routes/app_route_constants.dart';
 import '../../../login/provider/loading_provider.dart';
+import '../../../login/services/google_signin.dart';
 import '../../controllers/signup_controller.dart';
 import 'package:connectify/authentication/signup/controllers/validations.dart';
 
@@ -17,6 +18,8 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  bool _obscureTextPassword = true;
+  bool _obscureTextConfirmPassword = true;
   TextEditingController email_controller = TextEditingController();
   TextEditingController pass_controller = TextEditingController();
   TextEditingController name_controller = TextEditingController();
@@ -107,10 +110,22 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                               SizedBox(height: size.height*0.03,),
                               TextFormField(
+                                obscureText: _obscureTextPassword,
                                 style: TextStyle(color: AppColors.textColor),
                                 controller: pass_controller,
                                 onChanged: (value) => signupProvider.setPassword(value),
                                 decoration: InputDecoration(
+                                  suffixIcon: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _obscureTextPassword =! _obscureTextPassword;
+                                      }
+                                      );
+                                    },
+                                    child: Icon(_obscureTextPassword ? Icons.visibility_off : Icons.visibility,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                                   errorText: (signupProvider.passwordError == '')? null : signupProvider.passwordError,
                                   labelText: 'Create Password',
                                   labelStyle: TextStyle(color: AppColors.textColor),
@@ -132,10 +147,22 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                               SizedBox(height: size.height*0.03,),
                               TextFormField(
+                                obscureText: _obscureTextConfirmPassword,
                                 style: TextStyle(color: AppColors.textColor),
                                 controller: confirm_controller,
                                 onChanged: (value) => signupProvider.setConfirm(value),
                                 decoration: InputDecoration(
+                                  suffixIcon: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _obscureTextConfirmPassword =! _obscureTextConfirmPassword;
+                                      }
+                                      );
+                                    },
+                                    child: Icon(_obscureTextConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                                   errorText: (signupProvider.confirmError == '')? null : signupProvider.confirmError,
                                   labelText: 'Confirm Password',
                                   labelStyle: TextStyle(color: AppColors.textColor),
@@ -204,7 +231,10 @@ class _SignupPageState extends State<SignupPage> {
                       height: size.height*0.06,
                       width: size.width*0.9,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print("pressed");
+                            signIn(context);
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

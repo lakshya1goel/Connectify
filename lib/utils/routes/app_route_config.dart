@@ -1,6 +1,8 @@
 import 'package:connectify/authentication/forgotPass/views/screens/successScreen.dart';
 import 'package:connectify/authentication/login/views/sreens/login.dart';
+import 'package:connectify/authentication/signup/views/screens/confirmProfilePic.dart';
 import 'package:connectify/home.dart';
+import 'package:connectify/splash_screen.dart';
 import 'package:connectify/utils/routes/app_route_constants.dart';
 import 'package:connectify/authentication/forgotPass/views/screens/forgotPasswordPage.dart';
 import 'package:connectify/authentication/signup/views/screens/otpPage.dart';
@@ -15,8 +17,15 @@ import 'package:go_router/go_router.dart';
   final GoRouter router = GoRouter(
     routes: [
       GoRoute(
-        name: MyAppRouteConstants.LoginRouteName,
+        name: MyAppRouteConstants.SplashScreenRouteName,
         path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SplashScreen();
+        },
+      ),
+      GoRoute(
+        name: MyAppRouteConstants.LoginRouteName,
+        path: '/login',
         builder: (BuildContext context, GoRouterState state) {
           return const LoginPage();
         },
@@ -40,6 +49,13 @@ import 'package:go_router/go_router.dart';
                 path: 'profile_pic_selection_page/:email',
                 pageBuilder: (context, state) {
                   return MaterialPage(child: ProfilePicSelectionPage(email: state.pathParameters['email'],));
+                }
+            ),
+            GoRoute(
+                name: MyAppRouteConstants.ConfirmProfilePicRouteName,
+                path: 'confirm_profile_pic_page/:email',
+                pageBuilder: (context, state) {
+                  return MaterialPage(child: ConfirmProfilePic(email: state.pathParameters['email'],));
                 }
             )
           ],

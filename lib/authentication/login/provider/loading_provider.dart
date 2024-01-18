@@ -16,7 +16,7 @@ class LoadingProvider extends ChangeNotifier {
   void showCustomLoadingDialog(BuildContext context) {
     showDialog(
       context: context,
-      barrierDismissible: false, // set to false if you want to force the user to close the dialog
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomLoadingIndicator();
       },
@@ -24,7 +24,7 @@ class LoadingProvider extends ChangeNotifier {
   }
 
   void hideCustomLoadingDialog(BuildContext context) {
-    Navigator.of(context).pop(); // Close the dialog when you want to hide it
+    Navigator.of(context).pop();
   }
 
 }

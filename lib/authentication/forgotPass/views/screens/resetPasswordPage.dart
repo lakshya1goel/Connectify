@@ -16,6 +16,8 @@ class ResetPasswordPage extends StatefulWidget {
 }
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  bool _obscureTextPassword = true;
+  bool _obscureTextConfirmPassword = true;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -53,9 +55,21 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           child: Column(
                             children: [
                               TextFormField(
+                                obscureText: _obscureTextPassword,
                                 style: TextStyle(color: AppColors.textColor),
                                 onChanged: (value) => resetPassProvider.setPassword(value),
                                 decoration: InputDecoration(
+                                  suffixIcon: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _obscureTextPassword =! _obscureTextPassword;
+                                      }
+                                      );
+                                    },
+                                    child: Icon(_obscureTextPassword ? Icons.visibility_off : Icons.visibility,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                                   errorText: (resetPassProvider.passwordError == '')? null : resetPassProvider.passwordError,
                                   labelText: 'New Password',
                                   labelStyle: TextStyle(color: AppColors.textColor),
@@ -77,9 +91,21 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               ),
                               SizedBox(height: size.height*0.03,),
                               TextFormField(
+                                obscureText: _obscureTextConfirmPassword,
                                 style: TextStyle(color: AppColors.textColor),
                                 onChanged: (value) => resetPassProvider.setConfirmPassword(value),
                                 decoration: InputDecoration(
+                                  suffixIcon: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _obscureTextConfirmPassword =! _obscureTextConfirmPassword;
+                                      }
+                                      );
+                                    },
+                                    child: Icon(_obscureTextConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                                   errorText: (resetPassProvider.confirmError == '')? null : resetPassProvider.confirmError,
                                   labelText: 'Confirm New Password',
                                   labelStyle: TextStyle(color: AppColors.textColor),

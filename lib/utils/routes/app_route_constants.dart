@@ -1,4 +1,5 @@
 class MyAppRouteConstants {
+  static const String SplashScreenRouteName = 'splash_screen';
   static const String LoginRouteName = 'login';
   static const String SignupRouteName = 'signup';
   static const String OTPPageRouteName = 'otp_page';
@@ -7,5 +8,6 @@ class MyAppRouteConstants {
   static const String ResetPasswordRouteName = 'reset_password_page';
   static const String ProfilePicSelectionRouteName = 'profile_pic_selection_page';
   static const String SuccessRouteName = 'success_screen';
+  static const String ConfirmProfilePicRouteName = 'confirm_profile_pic_page';
   static const String HomeRouteName = 'home';
 }
