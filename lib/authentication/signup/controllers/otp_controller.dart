@@ -3,6 +3,8 @@ import 'package:connectify/authentication/signup/models/signup_model.dart';
 import 'package:connectify/authentication/signup/services/api_services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import '../../login/services/storage.dart';
+final SecureStorage secureStorage = SecureStorage();
 Future<LoginUserModel?> verifyOTP(String email, String otp) async {
   final String baseUrl = dotenv.get('BaseUrl');
   final String apiEndpoint = '$baseUrl/api/v1/auth/verify-registration';
@@ -18,6 +20,8 @@ Future<LoginUserModel?> verifyOTP(String email, String otp) async {
     if (registerUserModel.success!) {
       print('successful!');
       print('msg: ${registerUserModel.msg}');
+      secureStorage.writeSecureData('accessToken', registerUserModel.accessToken);
+      secureStorage.writeSecureData('refreshToken', registerUserModel.refreshToken);
       return registerUserModel;
     } else {
       print('failed with error: Something went wrong.');

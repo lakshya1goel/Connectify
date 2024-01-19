@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:connectify/authentication/login/services/api_service.dart';
 import 'package:connectify/authentication/signup/controllers/select_avatar_controller.dart';
+import 'package:connectify/authentication/signup/controllers/select_image_controller.dart';
 import 'package:connectify/authentication/signup/models/signup_model.dart';
 import 'package:connectify/authentication/signup/provider/avatar_selection_provider.dart';
 import 'package:connectify/utils/contants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import '../../../../utils/routes/app_route_constants.dart';
 import '../../../login/provider/loading_provider.dart';
 import '../../controllers/validations.dart';
 
@@ -18,11 +24,14 @@ class ProfilePicSelectionPage extends StatefulWidget {
 }
 
 class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
-  Future<void> _pickImage(ImageSource s) async {
+  File? imageFile;
+  Future<File?> _pickImage(ImageSource s) async {
     final pickedImage = await ImagePicker().pickImage(source: s);
     if (pickedImage != null) {
-      print("File not Picked yet");
+      imageFile = File(pickedImage.path);
+      return imageFile;
     }
+    return null;
   }
   String selectedAvatar = "https://connectifystorage.s3.ap-south-1.amazonaws.com/resources/avatars/None.png";
   int currentCarouselIndex = 0;
@@ -114,28 +123,28 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    backgroundColor: AppColors.buttonColor,
-                                    title: Text("Pick an Image"),
+                                    backgroundColor: Color(0xFF1F2F3E),
+                                    title: Text("Pick an Image", style: TextStyle(color: AppColors.textColor)),
                                     actions: [
                                       TextButton(
                                         onPressed: () async {
                                           await _pickImage(ImageSource.camera);
                                           Navigator.of(context).pop();
                                         },
-                                        child: Text("Capture from Camera"),
+                                        child: Text("Open Camera", style: TextStyle(color: AppColors.textColor)),
                                       ),
                                       TextButton(
                                         onPressed: () async {
                                           await _pickImage(ImageSource.gallery);
                                           Navigator.of(context).pop();
                                         },
-                                        child: Text("Pick from Gallery"),
+                                        child: Text("Choose from Gallery", style: TextStyle(color: AppColors.textColor)),
                                       ),
                                       TextButton(
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },
-                                        child: Text("Cancel"),
+                                        child: Text("Cancel", style: TextStyle(color: AppColors.errorColor),),
                                       ),
                                     ],
                                   );
@@ -198,16 +207,19 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
                       width: size.width*0.9,
                       child: ElevatedButton(
                           onPressed: () async{
-                            // print(selectedAvatar);
-                            // print(avatarProvider.userId);
-                            // print(widget.email.toString());
                             if (avatarProvider.formKey.currentState!.validate()) {
                               loadingProvider.setLoading(true);
                               loadingProvider.showCustomLoadingDialog(context);
                               print(selectedAvatar);
                               print(avatarProvider.userId);
                               print(widget.email.toString());
-                              SignUpModel? res = await uploadAvatar(widget.email.toString(), avatarProvider.userId, selectedAvatar);
+                              SignUpModel? res;
+                              // if(imageFile == null) {
+                                res = await uploadAvatar(widget.email.toString(), avatarProvider.userId, selectedAvatar);
+                              // }
+                              // else {
+                              //   res = await uploadProfieImage(widget.email.toString(), avatarProvider.userId, imageFile);
+                              // }
                               loadingProvider.setLoading(false);
                               loadingProvider.hideCustomLoadingDialog(context);
                               if (res != null) {
@@ -236,6 +248,11 @@ class _ProfilePicSelectionPageState extends State<ProfilePicSelectionPage> {
           ),
         ),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: (){
+      //     context.goNamed(MyAppRouteConstants.ConfirmProfilePicRouteName);
+      //   }
+      // ),
     );
   }
 }

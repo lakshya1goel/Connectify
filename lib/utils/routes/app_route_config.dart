@@ -53,9 +53,9 @@ import 'package:go_router/go_router.dart';
             ),
             GoRoute(
                 name: MyAppRouteConstants.ConfirmProfilePicRouteName,
-                path: 'confirm_profile_pic_page/:email',
+                path: 'confirm_profile_pic_page',
                 pageBuilder: (context, state) {
-                  return MaterialPage(child: ConfirmProfilePic(email: state.pathParameters['email'],));
+                  return MaterialPage(child: ConfirmProfilePic());
                 }
             )
           ],

@@ -7,8 +7,8 @@ import '../../../login/provider/loading_provider.dart';
 import '../../controllers/validations.dart';
 
 class ConfirmProfilePic extends StatefulWidget {
-  final String? email;
-  const ConfirmProfilePic({super.key, required this.email});
+  // final String? email;
+  const ConfirmProfilePic({super.key, });
 
   @override
   State<ConfirmProfilePic> createState() => _ConfirmProfilePicState();
@@ -57,63 +57,7 @@ class _ConfirmProfilePicState extends State<ConfirmProfilePic> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: size.width*0.05),
-                    child: Row(
-                      children: [
-                        Image.asset("assets/images/cameraIcon.png"),
-                        TextButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    backgroundColor: AppColors.buttonColor,
-                                    title: Text("Pick an Image"),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () async {
-                                          await _pickImage(ImageSource.camera);
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text("Capture from Camera"),
-                                      ),
-                                      TextButton(
-                                        onPressed: () async {
-                                          await _pickImage(ImageSource.gallery);
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text("Pick from Gallery"),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text("Cancel"),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            child: Text("Add yours",
-                              style: TextStyle(
-                                color: AppColors.buttonColor,
-                              ),
-                            )
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: size.height*0.03,),
-                  Padding(
-                    padding: EdgeInsets.only(left: size.width*0.05),
-                    child: Text("Pick a username",
-                      style: TextStyle(
-                          fontSize: size.width*0.06
-                      ),
-                    ),
-                  ),
+
                   SizedBox(height: size.height*0.03,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width*0.05),

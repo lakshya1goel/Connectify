@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -74,4 +75,32 @@ class ApiService {
       return {'success': false, 'error': 'Error: $error'};
     }
   }
+
+
+  Future<Map<String, dynamic>> uploadImage(String email, String userId, File? imageFile) async {
+    var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
+      ..fields['email'] = email
+      ..fields['userId'] = userId
+      ..files.add(await http.MultipartFile.fromPath('file', imageFile!.path));
+
+    try {
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        print('Image uploaded successfully');
+
+        String responseBody = await response.stream.bytesToString();
+        Map<String, dynamic> decodedResponse = json.decode(responseBody);
+
+        return decodedResponse;
+      } else {
+        print('Failed to upload image. Status code: ${response.statusCode}');
+        return {'success': false, 'error': 'Error'};
+      }
+    } catch (error) {
+      print('Error uploading image: $error');
+      return {'success': false, 'error': 'Error: $error'};
+    }
+  }
+
 }

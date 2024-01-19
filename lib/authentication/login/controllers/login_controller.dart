@@ -1,7 +1,8 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../models/login_user_model.dart';
 import '../services/api_service.dart';
-
+import '../services/storage.dart';
+final SecureStorage secureStorage = SecureStorage();
 Future<LoginUserModel?> performLogin(String email, String pass) async {
   final String baseUrl = dotenv.get('BaseUrl');
   final String apiEndpoint = '$baseUrl/api/v1/auth/login';
@@ -22,6 +23,8 @@ Future<LoginUserModel?> performLogin(String email, String pass) async {
       print('Email: ${loginUserModel.email}');
       print('Profile Image URL: ${loginUserModel.profileImageUrl}');
       print('msg: ${loginUserModel.msg}');
+      secureStorage.writeSecureData('accessToken', loginUserModel.accessToken);
+      secureStorage.writeSecureData('refreshToken', loginUserModel.refreshToken);
       return loginUserModel;
     } else {
       print('Login failed with error: Something went wrong.');

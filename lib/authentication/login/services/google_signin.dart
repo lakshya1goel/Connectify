@@ -32,6 +32,9 @@ class GoogleSignInApi {
   ],);
   static Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
   static Future logout() => _googleSignIn.disconnect();
+  static Future<bool> isSignedIn() async {
+    return await _googleSignIn.isSignedIn();
+  }
 }
 
 Future<void> exchangeAccessToken(String accessToken) async {

@@ -3,6 +3,8 @@ import 'package:connectify/utils/routes/app_route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'authentication/login/services/storage.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -11,6 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final SecureStorage secureStorage = SecureStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +23,11 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: TextButton(
           onPressed: () async{
-            await GoogleSignInApi.logout();
+            if (await GoogleSignInApi.isSignedIn()) {
+              await GoogleSignInApi.logout();
+            }
+            await secureStorage.deleteSecureData('accessToken');
+            await secureStorage.deleteSecureData('refreshToken');
             context.goNamed(MyAppRouteConstants.LoginRouteName);
           },
           child: Text("LogOut", style: TextStyle(fontSize: 30),),
